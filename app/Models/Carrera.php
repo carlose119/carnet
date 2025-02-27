@@ -13,6 +13,7 @@ class Carrera extends Model
     protected $fillable = [
         'area_id',
         'nombre',
+        'imagen_carnet',
     ];
 
     public function areas(): BelongsTo

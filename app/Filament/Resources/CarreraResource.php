@@ -31,6 +31,10 @@ class CarreraResource extends Resource
                 Forms\Components\TextInput::make('nombre')
                     ->required()
                     ->maxLength(255),
+                /* Forms\Components\FileUpload::make('imagen_carnet')
+                    ->image()
+                    ->directory('carreras')
+                    ->required(), */
             ]);
     }
 
@@ -38,11 +42,13 @@ class CarreraResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('area_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('areas.nombre')
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('nombre')
                     ->searchable(),
+                /* Tables\Columns\ImageColumn::make('imagen_carnet')
+                    ->searchable(), */
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
