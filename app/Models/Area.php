@@ -4,9 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use OwenIt\Auditing\Contracts\Audit;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Area extends Model
+class Area extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
+    
     protected $table = 'areas';
     protected $primaryKey = 'id';
 

@@ -12,7 +12,8 @@
         "filament/filament": "^3.2",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.10.1",
-        "pxlrbt/filament-excel": "^2.4"
+        "pxlrbt/filament-excel": "^2.4",
+        "tapp/filament-auditing": "3.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

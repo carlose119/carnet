@@ -12,12 +12,13 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class CarreraResource extends Resource
 {
     protected static ?string $model = Carrera::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
 
     public static function form(Form $form): Form
     {
@@ -46,7 +47,8 @@ class CarreraResource extends Resource
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('nombre')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 /* Tables\Columns\ImageColumn::make('imagen_carnet')
                     ->searchable(), */
                 Tables\Columns\TextColumn::make('created_at')
@@ -74,7 +76,7 @@ class CarreraResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            AuditsRelationManager::class,
         ];
     }
 

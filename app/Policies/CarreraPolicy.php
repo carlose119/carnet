@@ -105,4 +105,14 @@ class CarreraPolicy
     {
         return $user->can('reorder_carrera');
     }
+
+    public function audit(User $user): bool
+    {
+        return $user->can('replicate_estudiante');
+    }
+
+    public function restoreAudit(User $user): bool
+    {
+        return $user->can('reorder_estudiante');
+    }
 }

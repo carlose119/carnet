@@ -4,9 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use OwenIt\Auditing\Contracts\Audit;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Carrera extends Model
+class Carrera extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
+
     protected $table = 'carreras';
     protected $primaryKey = 'id';
 
