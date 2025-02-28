@@ -41,9 +41,7 @@ class AreaResource extends Resource
                 Tables\Columns\TextColumn::make('nombre')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\ImageColumn::make('imagen_carnet')
-                    ->searchable()
-                    ->sortable(),
+                Tables\Columns\ImageColumn::make('imagen_carnet'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

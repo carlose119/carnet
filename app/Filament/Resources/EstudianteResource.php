@@ -79,9 +79,7 @@ class EstudianteResource extends Resource
                     ->numeric()
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\ImageColumn::make('imagen')
-                    ->searchable()
-                    ->sortable(),
+                Tables\Columns\ImageColumn::make('imagen'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
