@@ -42,6 +42,20 @@ class EstudianteResource extends Resource
                 Forms\Components\TextInput::make('parroquia')
                     ->maxLength(255)
                     ->default(null),
+                Forms\Components\FileUpload::make('imagen')
+                    ->image()
+                    ->directory('estudiantes')
+                    ->imageEditor()
+                    ->imageEditorAspectRatios([
+                        /* '16:9',
+                        '4:3', 
+                        '1:1', */
+                        '3:4',
+                    ])
+                    ->imageEditorMode(2)
+                    ->imageCropAspectRatio('3:4')
+                    ->imageResizeTargetWidth('98')
+                    ->imageResizeTargetHeight('121'),
             ]);
     }
 
@@ -59,9 +73,13 @@ class EstudianteResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('parroquia')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('carreras.nombre')
                     ->numeric()
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\ImageColumn::make('imagen')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -83,12 +101,12 @@ class EstudianteResource extends Resource
                     ->content(function ($record) {
                         return view('pdf.carnet', ['estudiante' => $record]);
                     })
-                    ->scale(20)
+                    ->scale(1)
                     ->print() // Enable print option
                     //->preview() // Enable preview option
                     ->pagebreak('section', ['css', 'legacy'])
                     ->orientation('portrait') // Portrait orientation
-                    ->format('a4', 'mm') // A4 format with mm units
+                    ->format([200,300], 'mm') // A4 format with mm units
                     ->enableLinks() // Enable links in PDF
                     ->margin([50, 50, 50, 50]) 
                     ->requiresConfirmation()

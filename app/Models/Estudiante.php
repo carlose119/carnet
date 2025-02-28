@@ -19,6 +19,7 @@ class Estudiante extends Model implements Auditable
         'cedula',
         'nombre',
         'parroquia',
+        'imagen',
     ];
 
     public function carreras(): BelongsTo
