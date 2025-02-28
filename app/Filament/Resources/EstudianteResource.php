@@ -16,6 +16,7 @@ use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
 use pxlrbt\FilamentExcel\Columns\Column;
 use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
+use Torgodly\Html2Media\Tables\Actions\Html2MediaAction;
 
 class EstudianteResource extends Resource
 {
@@ -77,6 +78,21 @@ class EstudianteResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Html2MediaAction::make('Carnet')
+                    ->filename(fn($record) => "carnet-{$record->cedula}.pdf")
+                    ->content(function ($record) {
+                        return view('pdf.carnet', ['estudiante' => $record]);
+                    })
+                    ->scale(20)
+                    ->print() // Enable print option
+                    //->preview() // Enable preview option
+                    ->pagebreak('section', ['css', 'legacy'])
+                    ->orientation('portrait') // Portrait orientation
+                    ->format('a4', 'mm') // A4 format with mm units
+                    ->enableLinks() // Enable links in PDF
+                    ->margin([50, 50, 50, 50]) 
+                    ->requiresConfirmation()
+                    ->savePdf(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
