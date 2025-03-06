@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\EstudianteResource\Pages;
 use App\Filament\Resources\EstudianteResource\RelationManagers;
 use App\Models\Estudiante;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Blade;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
 use pxlrbt\FilamentExcel\Columns\Column;
@@ -94,7 +96,7 @@ class EstudianteResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Html2MediaAction::make('Carnet')
+                /*Html2MediaAction::make('Carnet')
                     ->filename(fn($record) => "carnet-{$record->cedula}.pdf")
                     ->content(function ($record) {
                         return view('pdf.carnet', ['estudiante' => $record]);
@@ -108,7 +110,23 @@ class EstudianteResource extends Resource
                     ->enableLinks() // Enable links in PDF
                     ->margin([50, 50, 50, 50]) 
                     ->requiresConfirmation()
-                    ->savePdf(),
+                    ->savePdf(),*/
+                Tables\Actions\Action::make('pdf') 
+                    ->label('PDF')
+                    ->color('success')
+                    ->icon('heroicon-o-users')
+                    ->requiresConfirmation()
+                    ->action(function (Estudiante $record) {
+                        return response()->streamDownload(function () use ($record) {
+                            //$customPaper = array(0,0,360,360);
+                            $customPaper = 'carta';
+                            echo Pdf::loadHtml(
+                                Blade::render('pdf.carnet', ['estudiante' => $record])
+                            )//->stream()
+                            ->setPaper($customPaper, 'portrait')
+                            ->download('carnet-' . $record->cedula . '.pdf');                            
+                        }, 'carnet-' . $record->cedula . '.pdf');
+                    }), 
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -122,7 +140,7 @@ class EstudianteResource extends Resource
                             Column::make('parroquia')->heading('PARROQUIA'),
                             Column::make('carreras.nombre')->heading('CARRERA'),
                         ]),
-                    ]),                    
+                    ]),
                 ]),
             ]);
     }
