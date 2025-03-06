@@ -18,10 +18,10 @@
     {{ ucwords(strtolower($estudiante->nombre)) }}
 </div>
 
-<div style="position: absolute; width: 204.10px; font-family: Arial; margin-top: 210px; font-size: 10px; text-align: center;">
+<div style="position: absolute; width: 204.10px; font-family: Arial; margin-top: 215px; font-size: 10px; text-align: center;">
     {{ $estudiante->cedula }}
 </div>
 
-<div style="position: absolute; width: 80px; font-family: Arial; margin-left: 60px; margin-top: 225px; font-size: 10px; text-align: center; font-weight: bold;">
+<div style="position: absolute; width: 80px; font-family: Arial; margin-left: 60px; margin-top: 230px; font-size: 10px; text-align: center; font-weight: bold;">
     {{ strtoupper($estudiante->carreras->nombre) }}
 </div>

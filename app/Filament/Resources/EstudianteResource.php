@@ -112,9 +112,9 @@ class EstudianteResource extends Resource
                     ->requiresConfirmation()
                     ->savePdf(),*/
                 Tables\Actions\Action::make('pdf') 
-                    ->label('PDF')
+                    ->label('Carnet')
                     ->color('success')
-                    ->icon('heroicon-o-users')
+                    ->icon('heroicon-o-credit-card')
                     ->requiresConfirmation()
                     ->action(function (Estudiante $record) {
                         return response()->streamDownload(function () use ($record) {
