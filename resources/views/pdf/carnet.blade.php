@@ -14,14 +14,14 @@
     <img src="{{ $ruta_imagen_estudiante }}">
 </div>
 
-<div style="position: absolute; width: 204.10px; font-family: Arial; margin-top: 190px; font-size: 10px; text-align: center;">
-    {{ $estudiante->nombre }}
+<div style="position: absolute; width: 80px; font-family: Arial; margin-left: 60px; margin-top: 190px; font-size: 10px; text-align: center;">
+    {{ ucwords(strtolower($estudiante->nombre)) }}
 </div>
 
 <div style="position: absolute; width: 204.10px; font-family: Arial; margin-top: 210px; font-size: 10px; text-align: center;">
     {{ $estudiante->cedula }}
 </div>
 
-<div style="position: absolute; width: 204.10px; font-family: Arial; margin-top: 225px; font-size: 10px; text-align: center; font-weight: bold;">
-    {{ strtoupper ($estudiante->carreras->nombre) }}
+<div style="position: absolute; width: 80px; font-family: Arial; margin-left: 60px; margin-top: 225px; font-size: 10px; text-align: center; font-weight: bold;">
+    {{ strtoupper($estudiante->carreras->nombre) }}
 </div>
