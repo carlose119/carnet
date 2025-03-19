@@ -20,6 +20,10 @@ class AreaResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office';
 
+    protected static ?string $label = 'Áreas';
+
+    protected static ?string $modelLabel = 'Área';
+
     public static function form(Form $form): Form
     {
         return $form

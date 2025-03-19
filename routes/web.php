@@ -1,9 +1,12 @@
 <?php
 
+use Filament\Facades\Filament;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    //$paneles = Filament::getPanels();
+    $panelId = 'admin';
+    return redirect(route("filament.{$panelId}.auth.login"));
 });
 
 
