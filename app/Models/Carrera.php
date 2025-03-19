@@ -18,6 +18,7 @@ class Carrera extends Model implements Auditable
         'area_id',
         'nombre',
         'imagen_carnet',
+        'tipo',
     ];
 
     public function areas(): BelongsTo

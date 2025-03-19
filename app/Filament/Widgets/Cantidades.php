@@ -16,9 +16,9 @@ class Cantidades extends BaseWidget
         $totalCarreras = Carrera::all()->count();
         $totalEstudiantes = Estudiante::all()->count();
         return [
-            Stat::make('Áreas', $totalAreas),
-            Stat::make('Carreras', $totalCarreras),
-            Stat::make('Estudiantes', $totalEstudiantes),
+            Stat::make('Áreas', number_format($totalAreas, 0, ',', '.')),
+            Stat::make('Carreras', number_format($totalCarreras, 0, ',', '.')),
+            Stat::make('Estudiantes', number_format($totalEstudiantes, 0, ',', '.')),
         ];
     }
 }

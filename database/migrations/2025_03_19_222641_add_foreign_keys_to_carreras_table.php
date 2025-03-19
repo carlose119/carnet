@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('areas', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre')->unique();
-            $table->string('imagen_carnet')->nullable();
-            $table->timestamps();
+        Schema::table('carreras', function (Blueprint $table) {
+            $table->foreign(['area_id'], 'carreras_area_id')->references(['id'])->on('areas')->onUpdate('restrict')->onDelete('restrict');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('areas');
+        Schema::table('carreras', function (Blueprint $table) {
+            $table->dropForeign('carreras_area_id');
+        });
     }
 };

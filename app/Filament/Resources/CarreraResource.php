@@ -32,10 +32,17 @@ class CarreraResource extends Resource
                 Forms\Components\TextInput::make('nombre')
                     ->required()
                     ->maxLength(255),
-                /* Forms\Components\FileUpload::make('imagen_carnet')
+                Forms\Components\FileUpload::make('imagen_carnet')
                     ->image()
                     ->directory('carreras')
-                    ->required(), */
+                    ->required(),
+                Forms\Components\Select::make('tipo')
+                    ->options([
+                        'Pregrado' => 'Pregrado',
+                        'Posgrado' => 'Posgrado',
+                        'PNF' => 'PNF',
+                    ])
+                    ->required(),
             ]);
     }
 
@@ -49,8 +56,10 @@ class CarreraResource extends Resource
                 Tables\Columns\TextColumn::make('nombre')
                     ->searchable()
                     ->sortable(),
-                /* Tables\Columns\ImageColumn::make('imagen_carnet')
-                    ->searchable(), */
+                Tables\Columns\TextColumn::make('tipo')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\ImageColumn::make('imagen_carnet'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -61,7 +70,14 @@ class CarreraResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('tipo')
+                    ->options([
+                        'Pregrado' => 'Pregrado',
+                        'Posgrado' => 'Posgrado',
+                        'PNF' => 'PNF',
+                    ])
+                    ->label('Tipo de Carrera')
+                    ->multiple()
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

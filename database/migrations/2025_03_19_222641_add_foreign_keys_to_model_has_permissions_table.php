@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('estudiantes', function (Blueprint $table) {
-            $table->string('imagen')->nullable();
+        Schema::table('model_has_permissions', function (Blueprint $table) {
+            $table->foreign(['permission_id'])->references(['id'])->on('permissions')->onUpdate('restrict')->onDelete('cascade');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('estudiantes', function (Blueprint $table) {
-            $table->dropColumn('imagen');
+        Schema::table('model_has_permissions', function (Blueprint $table) {
+            $table->dropForeign('model_has_permissions_permission_id_foreign');
         });
     }
 };
