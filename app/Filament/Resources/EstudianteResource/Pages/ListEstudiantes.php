@@ -16,7 +16,7 @@ class ListEstudiantes extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
-            ExcelImportAction::make()->color("primary")->use(EstudiantesImport::class),
+            ExcelImportAction::make()->label("Importar")->color("primary")->use(EstudiantesImport::class),
         ];
     }
 }
