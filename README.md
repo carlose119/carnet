@@ -67,4 +67,4 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 
 php artisan shield:generate --all  
-php artisan shield:generate --resource=user
+php artisan shield:generate --resource=DepartamentoResource
