@@ -15,17 +15,17 @@
 </div>
 
 <div style="position: absolute; width: 204.10px; margin-top: 65px; text-align: center;">
-    <img src="{{ $ruta_imagen_estudiante }}">
+    <img src="{{ $ruta_imagen_estudiante }}" style="width:90px; height: 120px;">
 </div>
 
-<div style="position: absolute; width: 80px; font-family: Arial; margin-left: 60px; margin-top: 190px; font-size: 10px; text-align: center;">
+<div style="position: absolute; font-family: Arial; margin-top: 215px; font-size: 10px; width: 170px; text-align: center; padding-left: 10px; padding-right: 10px;">
     {{ ucwords(strtolower($estudiante->nombre)) }}
 </div>
 
-<div style="position: absolute; width: 204.10px; font-family: Arial; margin-top: 215px; font-size: 10px; text-align: center;">
-    {{ $estudiante->cedula }}
+<div style="position: absolute; font-family: Arial; margin-top: 235px; font-size: 10px; width: 170px; text-align: center; padding-left: 10px; padding-right: 10px;">
+    C.I. {{ number_format($estudiante->cedula, 0, ',', '.') }}
 </div>
 
-<div style="position: absolute; width: 80px; font-family: Arial; margin-left: 60px; margin-top: 230px; font-size: 10px; text-align: center; font-weight: bold;">
+<div style="position: absolute; font-family: Arial; margin-top: 250px; font-size: 10px; text-align: center; font-weight: bold; width: 170px; padding-left: 10px; padding-right: 10px;">
     {{ strtoupper($estudiante->carreras->nombre) }}
 </div>

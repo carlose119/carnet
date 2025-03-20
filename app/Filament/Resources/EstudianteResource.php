@@ -97,7 +97,24 @@ class EstudianteResource extends Resource
                     ->relationship('carreras', 'nombre')
                     ->label('Carrera')
                     ->multiple()
+                    ->preload(),
+                Tables\Filters\SelectFilter::make('carreras.tipo')
+                    ->options([
+                        'Pregrado' => 'Pregrado',
+                        'Postgrado' => 'Postgrado',
+                        'PNF' => 'PNF',
+                    ])                    
+                    ->label('Tipo de Carrera')
+                    ->multiple()
                     ->preload()
+                    ->query(function (Builder $query, array $data): Builder {
+                        if (empty($data['values'])) {
+                            return $query;
+                        }
+                        return $query->whereHas('carreras', function ($query) use ($data) {
+                            $query->whereIn('tipo', $data['values']);
+                        });
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -131,7 +148,7 @@ class EstudianteResource extends Resource
                             ->setPaper($customPaper, 'portrait')
                             ->download('carnet-' . $record->cedula . '.pdf');                            
                         }, 'carnet-' . $record->cedula . '.pdf');
-                    }), 
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
