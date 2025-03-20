@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\EmpleadoResource\Pages;
 use App\Filament\Resources\EmpleadoResource\RelationManagers;
+use App\Models\Autoridad;
+use App\Models\Carnet;
 use App\Models\Empleado;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Forms;
@@ -107,11 +109,24 @@ class EmpleadoResource extends Resource
                     ->icon('heroicon-o-credit-card')
                     ->requiresConfirmation()
                     ->action(function (Empleado $record) {
-                        return response()->streamDownload(function () use ($record) {
+                        $carnet = Carnet::where('empleado_id', $record->id)->orderBy('id','desc')->first();
+                        if (!$carnet || ($carnet && $carnet->fecha_vencimiento < now())) {
+                            $autoridad = Autoridad::where('activo', 1)->first();
+
+                            $carnet = new Carnet();
+                            $carnet->empleado_id = $record->id;
+                            $carnet->autoridad_id = $autoridad ? $autoridad->id : null;
+                            $carnet->fecha_emision = now();
+                            $carnet->fecha_vencimiento = now()->addYear();
+                            $carnet->save();
+                        }
+                        $autoridad = Autoridad::where('id', $carnet->autoridad_id)->first();
+
+                        return response()->streamDownload(function () use ($record, $carnet, $autoridad) {
                             //$customPaper = array(0,0,360,360);
                             $customPaper = 'carta';
                             echo Pdf::loadHtml(
-                                Blade::render('pdf.carnet-empleado', ['empleado' => $record])
+                                Blade::render('pdf.carnet-empleado', ['empleado' => $record, 'carnet' => $carnet, 'autoridad' => $autoridad])
                             )//->stream()
                             ->setPaper($customPaper, 'portrait')
                             ->download('carnet-empleado' . $record->cedula . '.pdf');                            

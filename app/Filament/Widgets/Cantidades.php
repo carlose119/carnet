@@ -3,6 +3,7 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Area;
+use App\Models\Carnet;
 use App\Models\Carrera;
 use App\Models\Empleado;
 use App\Models\Estudiante;
@@ -20,6 +21,7 @@ class Cantidades extends BaseWidget
         $totalEstudiantesPosgrado = Estudiante::join('carreras', 'estudiantes.carrera_id', '=', 'carreras.id')->where('tipo', '=', 'Posgrado')->count();
         $totalEstudiantesPnf = Estudiante::join('carreras', 'estudiantes.carrera_id', '=', 'carreras.id')->where('tipo', '=', 'PNF')->count();
         $totalEmpleados = Empleado::all()->count();
+        $totalCarnets = Carnet::all()->count();
         return [
             Stat::make('Áreas', number_format($totalAreas, 0, ',', '.')),
             Stat::make('Carreras', number_format($totalCarreras, 0, ',', '.')),
@@ -28,6 +30,7 @@ class Cantidades extends BaseWidget
             Stat::make('Estudiantes Posgrado', number_format($totalEstudiantesPosgrado, 0, ',', '.')),
             Stat::make('Estudiantes PNF', number_format($totalEstudiantesPnf, 0, ',', '.')),
             Stat::make('Empleados', number_format($totalEmpleados, 0, ',', '.')),
+            Stat::make('Carnet Emitidos', number_format($totalCarnets, 0, ',', '.')),
         ];
     }
 }

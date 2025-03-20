@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\EstudianteResource\Pages;
 use App\Filament\Resources\EstudianteResource\RelationManagers;
+use App\Models\Autoridad;
+use App\Models\Carnet;
 use App\Models\Estudiante;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Forms;
@@ -139,11 +141,32 @@ class EstudianteResource extends Resource
                     ->icon('heroicon-o-credit-card')
                     ->requiresConfirmation()
                     ->action(function (Estudiante $record) {
-                        return response()->streamDownload(function () use ($record) {
+                        $carnet = Carnet::where('estudiante_id', $record->id)->orderBy('id','desc')->first();
+                        if (!$carnet || ($carnet && $carnet->fecha_vencimiento < now())) {
+                            $autoridad = Autoridad::where('activo', 1)->first();
+
+                            $carnet = new Carnet();
+                            $carnet->estudiante_id = $record->id;
+                            $carnet->autoridad_id = $autoridad ? $autoridad->id : null;
+                            $carnet->fecha_emision = now();
+
+                            if ($record->carreras->tipo == 'Pregrado') {
+                                $carnet->fecha_vencimiento = now()->addYear();
+                            } else if ($record->carreras->tipo == 'PNF') {
+                                $carnet->fecha_vencimiento = now()->addYear();
+                            } else {
+                                $carnet->fecha_vencimiento = now()->addMonth(6);
+                            }
+
+                            $carnet->save();
+                        }
+                        $autoridad = Autoridad::where('id', $carnet->autoridad_id)->first();
+
+                        return response()->streamDownload(function () use ($record, $carnet, $autoridad) {
                             //$customPaper = array(0,0,360,360);
                             $customPaper = 'carta';
                             echo Pdf::loadHtml(
-                                Blade::render('pdf.carnet', ['estudiante' => $record])
+                                Blade::render('pdf.carnet', ['estudiante' => $record, 'carnet' => $carnet, 'autoridad' => $autoridad])
                             )//->stream()
                             ->setPaper($customPaper, 'portrait')
                             ->download('carnet-' . $record->cedula . '.pdf');                            
