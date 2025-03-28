@@ -23,4 +23,17 @@ class Autoridad extends Model implements Auditable
         'activo',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($autoridad) {
+            if ($autoridad->activo) {
+                static::where('id', '!=', $autoridad->id)
+                    ->where('activo', true)
+                    ->update(['activo' => false]);
+            }
+        });
+    }
+
 }
