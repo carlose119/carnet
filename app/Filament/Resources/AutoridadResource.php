@@ -65,9 +65,9 @@ class AutoridadResource extends Resource
                         '3:4',
                     ])
                     ->imageEditorMode(2)
-                    ->imageCropAspectRatio('3:4')
+                    /* ->imageCropAspectRatio('3:4')
                     ->imageResizeTargetWidth('120')
-                    ->imageResizeTargetHeight('120'),
+                    ->imageResizeTargetHeight('120') */,
                 Forms\Components\FileUpload::make('sello')
                     ->image()
                     ->required()
@@ -80,9 +80,9 @@ class AutoridadResource extends Resource
                         '3:4',
                     ])
                     ->imageEditorMode(2)
-                    ->imageCropAspectRatio('3:4')
+                    /* ->imageCropAspectRatio('3:4')
                     ->imageResizeTargetWidth('120')
-                    ->imageResizeTargetHeight('120'),
+                    ->imageResizeTargetHeight('120') */,
                 Forms\Components\Toggle::make('activo'),
             ]);
     }
