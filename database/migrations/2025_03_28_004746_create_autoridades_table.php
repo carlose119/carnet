@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('autoridades', function (Blueprint $table) {
             $table->integer('id', true);
             $table->string('nombre', 100)->nullable();
+            $table->string('cedula', 10)->nullable();
             $table->string('cargo')->nullable();
             $table->string('firma')->nullable();
             $table->string('sello')->nullable();
+            $table->string('resolucion')->nullable();
             $table->boolean('activo')->nullable()->default(false);
             $table->timestamps();
         });

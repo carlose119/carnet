@@ -104,7 +104,7 @@ class EstudianteResource extends Resource
                     ->options([
                         'Pregrado' => 'Pregrado',
                         'Postgrado' => 'Postgrado',
-                        'PNF' => 'PNF',
+                        'Educación continua' => 'Educación continua',
                     ])                    
                     ->label('Tipo de Carrera')
                     ->multiple()
@@ -152,7 +152,7 @@ class EstudianteResource extends Resource
 
                             if ($record->carreras->tipo == 'Pregrado') {
                                 $carnet->fecha_vencimiento = now()->addYear();
-                            } else if ($record->carreras->tipo == 'PNF') {
+                            } else if ($record->carreras->tipo == 'Educación continua') {
                                 $carnet->fecha_vencimiento = now()->addYear();
                             } else {
                                 $carnet->fecha_vencimiento = now()->addMonth(6);

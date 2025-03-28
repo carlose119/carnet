@@ -34,13 +34,12 @@ class CarreraResource extends Resource
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('imagen_carnet')
                     ->image()
-                    ->directory('carreras')
-                    ->required(),
+                    ->directory('carreras'),
                 Forms\Components\Select::make('tipo')
                     ->options([
                         'Pregrado' => 'Pregrado',
                         'Posgrado' => 'Posgrado',
-                        'PNF' => 'PNF',
+                        'Educación continua' => 'Educación continua',
                     ])
                     ->required(),
             ]);
@@ -74,7 +73,7 @@ class CarreraResource extends Resource
                     ->options([
                         'Pregrado' => 'Pregrado',
                         'Posgrado' => 'Posgrado',
-                        'PNF' => 'PNF',
+                        'Educación continua' => 'Educación continua',
                     ])
                     ->label('Tipo de Carrera')
                     ->multiple()

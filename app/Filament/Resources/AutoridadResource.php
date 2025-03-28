@@ -38,12 +38,24 @@ class AutoridadResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('nombre')
                     ->maxLength(100)
+                    ->required()
+                    ->default(null),
+                Forms\Components\TextInput::make('cedula')
+                    ->maxLength(10)
+                    ->required()
+                    ->numeric()
                     ->default(null),
                 Forms\Components\TextInput::make('cargo')
                     ->maxLength(255)
+                    ->required()
+                    ->default(null),
+                 Forms\Components\TextInput::make('resolucion')
+                    ->maxLength(255)
+                    ->required()
                     ->default(null),
                 Forms\Components\FileUpload::make('firma')
                     ->image()
+                    ->required()
                     ->directory('autoridades')
                     ->imageEditor()
                     ->imageEditorAspectRatios([
@@ -58,6 +70,7 @@ class AutoridadResource extends Resource
                     ->imageResizeTargetHeight('120'),
                 Forms\Components\FileUpload::make('sello')
                     ->image()
+                    ->required()
                     ->directory('autoridades')
                     ->imageEditor()
                     ->imageEditorAspectRatios([

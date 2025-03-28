@@ -15,9 +15,11 @@ class Autoridad extends Model implements Auditable
 
     protected $fillable = [
         'nombre',
+        'cedula',
         'cargo',
         'firma',
         'sello',
+        'resolucion',
         'activo',
     ];
 
