@@ -22,7 +22,7 @@
         'carrera' => strtolower($estudiante->carreras->nombre),
     ]);
 
-    $qr_code = base64_encode(QrCode::format('png')->size(100)->generate($datos_estudiante));
+    $qr_code = base64_encode(QrCode::format('png')->size(90)->generate($datos_estudiante));
 @endphp
 
 <!--Frontal-->

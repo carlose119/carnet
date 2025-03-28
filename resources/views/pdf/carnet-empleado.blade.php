@@ -16,7 +16,7 @@
         //'departamento' => strtolower($empleado->departamento->nombre),
     ]);
 
-    $qr_code = base64_encode(QrCode::format('png')->size(100)->generate($datos_empleado));
+    $qr_code = base64_encode(QrCode::format('png')->size(90)->generate($datos_empleado));
 @endphp
 
 <!--Frontal-->
